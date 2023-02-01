@@ -12,7 +12,20 @@ body {
   line-height: 1.5;
 }
 .search-form{
-  margin-bottom: 30px;
+  display: flex;
+
+  margin-bottom: 16px;
+    background-color: #3561b8;
+    height: 48px;
+}
+.search-form>input{
+  margin-left: 40%;
+    width: 230px;
+    height: 100%;
+    font-size: 28px;
+}
+.search-form>button{
+  font-size: 28px;
 }
 .gallery{
   display: flex;
@@ -22,7 +35,8 @@ body {
 }
 .info{
   display: flex;
-  border: 1px solid tomato;
+  flex-wrap: wrap;
+  background-color:#3561b8b3;
 }
 .info-item {
 margin-left: 10px;
@@ -32,6 +46,7 @@ margin-left: 10px;
     float: left; 
     width: calc((100% - 24px) / 3); 
     box-sizing: border-box; 
+    overflow: hidden;
 }
 .photo-card>img{
   width: 100%;

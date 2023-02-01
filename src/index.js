@@ -1,4 +1,5 @@
 import './css/styles.css';
+import Notiflix from 'notiflix';
 const axios = require('axios').default;
 const API_KEY = '33289628-97fffc14136600725dd3f07c9';
 const searchForm = document.getElementById('search-form');
@@ -8,8 +9,9 @@ searchForm.addEventListener('submit', onSubmitClick);
 
 async function onSubmitClick(e) {
   const arrObj = await getSearchArr(getValueForm(e));
-
-  console.log(arrObj);
+  if (!arrObj) {
+    return;
+  }
   gallery.innerHTML = await renderCard(arrObj);
 }
 
@@ -24,13 +26,22 @@ async function getSearchArr(text) {
     const response = await axios.get(
       `https://pixabay.com/api/?key=${API_KEY}&q=${text}&image_type=photo&orientation=horizontal&safesearch=true`
     );
-    return await response.data.hits;
+    if (response.data.totalHits === 0) {
+      Notiflix.Notify.warning(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    } else {
+      return await response.data.hits;
+    }
   } catch (error) {
     console.log(error.message);
   }
 }
 
 async function renderCard(arr) {
+  if (!arr) {
+    return;
+  }
   return await arr
     .map(
       ({
