@@ -17,14 +17,23 @@ body {
 .gallery{
   display: flex;
   flex-wrap: wrap;
-  margin: -10px;
+  width: 100%;
+  margin: -4px; 
 }
 .info{
   display: flex;
+  border: 1px solid tomato;
 }
 .info-item {
 margin-left: 10px;
 }
 .photo-card{
-  margin: 10px;
+    margin: 4px;
+    float: left; 
+    width: calc((100% - 24px) / 3); 
+    box-sizing: border-box; 
+}
+.photo-card>img{
+  width: 100%;
+  height: 87%;
 }
