@@ -26,6 +26,7 @@ body {
 }
 .search-form>button{
   font-size: 28px;
+  background-color:#7c94c6;
 }
 .gallery{
   display: flex;
@@ -36,7 +37,7 @@ body {
 .info{
   display: flex;
   flex-wrap: wrap;
-  background-color:#3561b8b3;
+  background-color:#7c94c6;
 }
 .info-item {
 margin-left: 10px;
@@ -51,4 +52,13 @@ margin-left: 10px;
 .photo-card>img{
   width: 100%;
   height: 87%;
+}
+.load-more{
+  margin-left: 50%;
+  margin-top: 10px;
+    height: 36px;
+    width: 160px;
+    background-color:#7c94c6;
+    font-size: 28px;
+    display: block;
 }
