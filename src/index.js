@@ -5,7 +5,10 @@ const API_KEY = '33289628-97fffc14136600725dd3f07c9';
 const searchForm = document.getElementById('search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
+const perPage = 40;
+loadMoreBtn.classList.add('hidden');
 let getValue = '';
+
 let page = 1;
 
 searchForm.addEventListener('submit', onSubmitClick);
@@ -18,6 +21,7 @@ async function onSubmitClick(e) {
   if (!arrObj) {
     return;
   }
+  removeHideButton(arrObj);
   gallery.innerHTML = await renderCard(arrObj);
 }
 
@@ -30,14 +34,14 @@ function getValueForm(e) {
 async function getSearchArr(text) {
   try {
     const response = await axios.get(
-      `https://pixabay.com/api/?key=${API_KEY}&q=${text}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`
+      `https://pixabay.com/api/?key=${API_KEY}&q=${text}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}&page=${page}`
     );
     if (response.data.totalHits === 0) {
       Notiflix.Notify.warning(
         'Sorry, there are no images matching your search query. Please try again.'
       );
     } else {
-      console.log('🚀', await response.data.hits);
+      // console.log('🚀', await response.data.hits);
       return await response.data.hits;
     }
   } catch (error) {
@@ -84,7 +88,16 @@ async function renderCard(arr) {
 
 async function onLoadMoreClick(e) {
   page += 1;
+
   const arrObj = await getSearchArr(getValue);
   const resultRender = await renderCard(arrObj);
   await gallery.insertAdjacentHTML('beforeend', resultRender);
+  removeHideButton(arrObj);
+}
+function removeHideButton(arrObj) {
+  if (!arrObj) {
+    loadMoreBtn.classList.add('hidden');
+  } else if (arrObj.length >= perPage) {
+    loadMoreBtn.classList.remove('hidden');
+  }
 }

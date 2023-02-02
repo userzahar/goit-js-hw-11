@@ -54,11 +54,13 @@ margin-left: 10px;
   height: 87%;
 }
 .load-more{
-  margin-left: 50%;
+  margin-left: 45%;
   margin-top: 10px;
     height: 36px;
     width: 160px;
     background-color:#7c94c6;
     font-size: 28px;
-    display: block;
+}
+.hidden{
+  display: none;
 }
