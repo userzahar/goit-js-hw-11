@@ -41,10 +41,12 @@ async function getSearchArr(text) {
         'Sorry, there are no images matching your search query. Please try again.'
       );
     } else {
-      // console.log('🚀', await response.data.hits);
       return await response.data.hits;
     }
   } catch (error) {
+    Notiflix.Notify.warning(
+      "We're sorry, but you've reached the end of search results."
+    );
     console.log(error.message);
   }
 }
@@ -99,5 +101,9 @@ function removeHideButton(arrObj) {
     loadMoreBtn.classList.add('hidden');
   } else if (arrObj.length >= perPage) {
     loadMoreBtn.classList.remove('hidden');
+  } else {
+    Notiflix.Notify.warning(
+      "We're sorry, but you've reached the end of search results."
+    );
   }
 }
