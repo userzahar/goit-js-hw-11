@@ -17,7 +17,7 @@ loadMoreBtn.addEventListener('click', onLoadMoreClick);
 
 async function onSubmitClick(e) {
   page = 1;
-  gallery.innerHTML = '';
+  flag = true;
   const arrObj = await getSearchArr(getValueForm(e));
   if (!arrObj) {
     return;
