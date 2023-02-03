@@ -6,6 +6,7 @@ const searchForm = document.getElementById('search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 const perPage = 40;
+let flag = true;
 loadMoreBtn.classList.add('hidden');
 let getValue = '';
 
@@ -41,9 +42,12 @@ async function getSearchArr(text) {
         'Sorry, there are no images matching your search query. Please try again.'
       );
     } else {
-      Notiflix.Notify.success(
-        `Hooray! We found ${response.data.totalHits} images.`
-      );
+      if (flag) {
+        Notiflix.Notify.success(
+          `Hooray! We found ${response.data.totalHits} images.`
+        );
+        flag = false;
+      }
       return await response.data.hits;
     }
   } catch (error) {
@@ -93,8 +97,9 @@ async function renderCard(arr) {
 
 async function onLoadMoreClick(e) {
   page += 1;
-
   const arrObj = await getSearchArr(getValue);
+  console.log('🚀', arrObj);
+
   const resultRender = await renderCard(arrObj);
   await gallery.insertAdjacentHTML('beforeend', resultRender);
   removeHideButton(arrObj);
@@ -105,6 +110,7 @@ function removeHideButton(arrObj) {
   } else if (arrObj.length >= perPage) {
     loadMoreBtn.classList.remove('hidden');
   } else {
+    loadMoreBtn.classList.add('hidden');
     Notiflix.Notify.warning(
       "We're sorry, but you've reached the end of search results."
     );
